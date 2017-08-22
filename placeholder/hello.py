@@ -35,6 +35,7 @@ settings.configure(
         os.path.join(BASE_DIR, 'static'),
     ),
     STATIC_URL = '/static/',
+    ALLOWED_HOSTS = ['*',],
 )
 
 from django.core.management import execute_from_command_line
