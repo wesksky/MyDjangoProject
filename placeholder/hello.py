@@ -60,7 +60,6 @@ class ImageForm(forms.Form):
         key = '{}.{}.{}'.format(width, height, image_format)
         content = cache.get(key)
         if content is None:
-            print('没有缓存，生成一张新的图片')
             image= Image.new('RGB', (width, height))
             draw = ImageDraw.Draw(image)
             text = '{} X {}'.format(width, height)
@@ -74,7 +73,7 @@ class ImageForm(forms.Form):
             content.seek(0)
             cache.set(key, content, 60 * 60)
         else:
-            print('有缓存，直接使用缓存')
+            pass
         return content
 
 def generate_etag(request, width, height):
