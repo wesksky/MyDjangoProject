@@ -1,0 +1,60 @@
+import java.text.SimpleDateFormat
+
+def device
+
+enum DeviceTypeEnum {
+
+    //已经注释掉的产品型号不需要维护，
+    //第四个参数为系统签名文件，已使用信鸽固件的产品，修改修改签名文件为“xg”
+    //TODO 关于D41、D44、D45的需求还需确认，主要是界面、分辨率、签名
+    D11(1, "HP-W107-I2/X-DZ", "人脸门禁", "lianzhi", 480, 640, 1, 0, 1, 0, 1),
+    //D12(1, "HP-W107-N/X-DZ", "人脸门禁", "lianzhi", 640, 480, 0, 1, 1, 0,1),
+    D13(1, "HP-W113-I1/X-DZ", "人脸门禁", "xg", 640, 480, 1, 0, 1, 5, 4),
+
+    D21(2, "HP-GH107-N/E-DZ", "人脸闸机", "lianzhi", 640, 480, 0, null, 1, 0, 1),
+    D23(2, "HP-GH107-N/K-SM", "人脸闸机", "lianzhi", 640, 480, 0, null, 1, 0, 1),
+    D22(2, "HP-GH107-N/X-DZ", "人脸闸机", "xg", 480, 640, 0, 1, 1, 0, 1),
+    D24(2, "HP-G1207B-ZH", "人脸闸机", "xg", 640, 480, 0, 1, 1, 0, 1),
+    D25(2, "HP-G1208B-SM", "人脸闸机", "xg", 640, 480, 0, 1, 1, 0, 1),
+
+    D41(4, "HP-D110-D/X-DZ", "人证通", "xg", 800, 600, 0, 1, 0, 0, 5),
+    D42(4, "HP-D1210B-DZ", "人证通", "lianzhi", 800, 600, 0, 1, 0, 0, 5),
+
+    D44(5, "HP-Y110HN-D/X-DZ", "人员注册机", "xg", 800, 600, 0, 1, 0, 0, 5),
+    //D43(4, "HP-Y107-D/X-DZ", "人员注册机", "lianzhi", 1280, 720, 1, 0, 0, 0,1),
+    D45(5, "HP-Y110-D/X-DZ", "人员注册机", "xg", 800, 600, 0, 1, 0, 0, 5),
+
+    def type //类型
+    def model //型号
+    def name //名称
+    def sign //签名
+    def preW //摄像头输出宽
+    def preH //摄像头输出高
+    def rgbCameraId //可见光摄像头id
+    def riCameraId //红外摄像头id
+    def faceMode //默认人脸识别模式
+    def ledname //开门 接口
+    def lightname //灯控 接口
+
+    DeviceTypeEnum(type, model, name, sign, preW, preH, rgbCameraId, riCameraId, faceMode, ledname, lightname) {
+        this.type = type
+        this.model = model
+        this.name = name
+        this.sign = sign
+        this.preW = preW
+        this.preH = preH
+        this.rgbCameraId = rgbCameraId
+        this.riCameraId = riCameraId
+        this.faceMode = faceMode
+        this.ledname = ledname
+        this.lightname = lightname
+    }
+
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def format = new SimpleDateFormat("MMddHHmm").format(new Date())
+        outputFileName = "Launcher_"+device.model.replace("/", "") + "_V" + rootProject.ext.versionName + "." + format + "_BETA.apk"
+    }
+}

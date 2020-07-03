@@ -41,7 +41,7 @@ settings.configure(
 from django.core.management import execute_from_command_line
 from django.conf.urls import url
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import render
 from django.views.decorators.http import etag
 from django.http import HttpResponse,HttpResponseBadRequest
